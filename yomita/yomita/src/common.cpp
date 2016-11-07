@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <iostream>
 #include <sstream>
 #include <vector>
-#ifdef defined(_MSC_VER)
+#if defined(_MSC_VER)
 #include <codecvt>
 #else
 #include <sys/stat.h> //mkdir
@@ -128,7 +128,7 @@ std::string path(const std::string& folder, const std::string& filename)
 
 void mkdir(std::string dir)
 {
-#ifdef defined(_MSC_VER)
+#if defined(_MSC_VER)
 	std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> cv;
 
 	if (_wmkdir(cv.from_bytes(dir).c_str()) == -1)
