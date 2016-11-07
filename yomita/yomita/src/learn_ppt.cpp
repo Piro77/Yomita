@@ -96,7 +96,7 @@ namespace Eval
 
 		// 値が小さいうちはskipする
 		if (abs(g2[0]) >= 0.1f && !skip_update)
-			w = WeightValue{ w[0] - eta * g[0] / sqrt(g2[0]) ,w[1] - eta2 * g[1] / sqrt(g2[1]) };
+			w = WeightValue{ w[0] - eta * g[0] / std::sqrt(g2[0]) ,w[1] - eta2 * g[1] / std::sqrt(g2[1]) };
 
 #elif defined USE_YANE_GRAD_UPDATE
 		if (g[0] == 0 && g[1] == 0)
@@ -228,8 +228,8 @@ namespace Eval
 				auto& w = pp_w[p1][p2];
 
 #ifdef DISPLAY_STATS_IN_UPDATE_WEIGHTS
-				max_pp[0] = std::max(max_pp[0], abs(w.w[0]));
-				max_pp[1] = std::max(max_pp[1], abs(w.w[1]));
+				max_pp[0] = std::max(max_pp[0], (double)abs(w.w[0]));
+				max_pp[1] = std::max(max_pp[1], (double)abs(w.w[1]));
 #endif
 				if (w.update(skip_update))
 				{
