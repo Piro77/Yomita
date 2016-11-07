@@ -32,7 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma warning(disable: 4805) // '|': 演算中の 'int64_t' 型と 'const bool' 型の混用は安全ではありません
 
 // MicroSoft Visual C++はinttypes.hをサポートしていない。サポートしているならここに書かれる内容はinttypes.hに任せればいい。
-#ifdef defiend(_MSC_VER)
+#if defined(_MSC_VER)
 typedef   signed __int8    int8_t;
 typedef unsigned __int8   uint8_t;
 typedef   signed __int16  int16_t;
