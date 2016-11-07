@@ -61,7 +61,7 @@ protected:
 	template <typename T> T rand()
 	{
 		std::unique_lock<Mutex> lk(rand_mutex);
-		return T(prng.rand64());
+		return T(prng.rand<uint64_t>());
 	}
 
 	uint64_t rand(size_t n)
