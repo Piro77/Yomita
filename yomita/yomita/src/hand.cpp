@@ -62,13 +62,14 @@ const uint32_t Hand::HAND_INCREMENT[] =
 
 std::ostream& operator << (std::ostream &os, const Hand& h)
 {
-	os << "持ち駒:";
+	os << (std::string)"持ち駒:";
 
 	if (!h)
-		os << "なし";
+		os << (std::string)"なし";
 	else
 		for (auto pt : HandPiece)
-			if (h.exists(pt))
-				os << pretty(pt) << h.count(pt);
+			if (h.exists(pt)) {
+				os << pretty(pt) << std::to_string(h.count(pt));
+      }
 	return os;
 }
