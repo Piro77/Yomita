@@ -65,6 +65,14 @@ typedef unsigned __int64 uint64_t;
 #define IS_64BIT
 #define USE_BSF
 #endif
+#if defined(__GNUC__) && defined(__x86_64__)
+#define IS_64BIT
+#define USE_BSF
+#define USE_POPCNT
+#define HAVE_SSE42
+#define HAVE_SSE4
+#define HAVE_BMI2
+#endif
 
 // uint64_tに対するpopcnt命令を使うか
 #if defined(_MSC_VER) && defined(IS_64BIT)
@@ -90,6 +98,21 @@ typedef unsigned __int64 uint64_t;
 
 #if defined (__GNUC__)
 #include <mm_malloc.h> // for _mm_alloc()
+#include <string.h> //memset
+#include <cstddef> //offsetof
+#include <iostream>
+#include <iomanip>
+#include <cfloat>
+#include <cmath>
+#include <cstring>
 #endif
 
+#if defined(_MSC_VER) && !defined(__INTEL_COMPILER)
 #define FORCE_INLINE __forceinline
+#elif defined(__INTEL_COMPILER)
+#define FORCE_INLINE inline
+#elif defined(__GNUC__)
+#define FORCE_INLINE __attribute__((always_inline)) inline
+#else
+#define FORCE_INLINE inline
+#endif
