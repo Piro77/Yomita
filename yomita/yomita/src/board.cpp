@@ -2368,6 +2368,7 @@ bool Board::verify() const
 {
 	int failed_step = 0;
 	StateInfo st;
+  {
 #if 1
 	// step 0
 
@@ -2579,7 +2580,7 @@ bool Board::verify() const
 #endif
 
 	return true;
-
+ }
 Failed:
 	std::cout << "error!" << " failed step is " << failed_step << *this << std::endl;
 	return false;
