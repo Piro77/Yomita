@@ -323,7 +323,7 @@ void USI::loop(int argc, char** argv)
 		{
 			SYNC_COUT << "id name " << engine_name << EVAL_TYPE << version
 				<< "\nid author Ryuzo Tukamoto"
-				<< "\n" << Options
+//XXX invalid operands to binary expression??				<< "\n" << Options
 				<< "\nusiok" << SYNC_ENDL;
 		}
 
