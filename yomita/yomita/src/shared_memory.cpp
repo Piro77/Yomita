@@ -27,8 +27,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <fstream>
 #include <iostream>
+#if defined(_MSC_VER)
 #include <windows.h>
 #include <codecvt>
+#endif
 #include "usi.h"
 #include "eval_kppt.h"
 #include "eval_ppt.h"
@@ -50,7 +52,7 @@ namespace Eval
 			SYNC_COUT << "info string use non-shared eval memory" << SYNC_ENDL;
 			return;
 		}
-
+#if defined(_MSC_VER)
 		std::string dir_name = USI::Options["EvalDir"];
 		replace(dir_name.begin(), dir_name.end(), '\\', '_');
 		replace(dir_name.begin(), dir_name.end(), '/', '_');
@@ -83,6 +85,7 @@ namespace Eval
 
 			ReleaseMutex(h_mutex);
 		}
+#endif
 	}
 } // namespace Eval;
 
