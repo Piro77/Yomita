@@ -10,6 +10,7 @@ if(NOT CMAKE_BUILD_TYPE MATCHES "^[Dd][Ee][Bb][Uu][Gg]")
         set(CMAKE_BUILD_RELEASE TRUE)
 else()
         set(CMAKE_BUILD_RELEASE FALSE)
+        add_definitions(-D_DEBUG)
 endif()
 
 message(STATUS "Building ${PROJECT_NAME} in ${CMAKE_BUILD_TYPE} mode")
