@@ -83,6 +83,7 @@ namespace Eval
 		EvalSum sum;
 		auto now = b.state();
 
+   {
 		if (!now->sum.isNotEvaluated())
 		{
 			sum = now->sum;
@@ -152,7 +153,7 @@ namespace Eval
 		}
 
 		now->sum = sum;
-
+   }
 		// 差分計算終わり
 	CALC_DIFF_END:
 		return (Score)(sum.calcScore(b.turn()) / FV_SCALE);
