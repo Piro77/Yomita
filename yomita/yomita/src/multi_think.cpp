@@ -37,7 +37,11 @@ void MultiThink::think()
 	std::vector<std::thread> threads;
 	auto thread_num = (size_t)USI::Options["Threads"];
 
+#if defined(_MSC_VER)
 	thread_finished.reset(new volatile bool[thread_num]);
+#else
+	thread_finished.reset(new bool[thread_num]);
+#endif
 
 	// 関数をラムダで渡せば起動したことになるらしい。
 	for (size_t i = 0; i < thread_num; i++)
