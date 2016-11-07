@@ -29,6 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <fstream>
 #include <ctime>
+#include <cmath>
 #include <sstream>
 #include <iomanip>
 #include "search.h"
