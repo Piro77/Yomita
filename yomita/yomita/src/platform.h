@@ -32,6 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma warning(disable: 4805) // '|': 演算中の 'int64_t' 型と 'const bool' 型の混用は安全ではありません
 
 // MicroSoft Visual C++はinttypes.hをサポートしていない。サポートしているならここに書かれる内容はinttypes.hに任せればいい。
+#ifdef defiend(_MSC_VER)
 typedef   signed __int8    int8_t;
 typedef unsigned __int8   uint8_t;
 typedef   signed __int16  int16_t;
@@ -40,6 +41,9 @@ typedef   signed __int32  int32_t;
 typedef unsigned __int32 uint32_t;
 typedef   signed __int64  int64_t;
 typedef unsigned __int64 uint64_t;
+#else
+#include <inttypes.h>
+#endif
 
 // Debug時に定義するとassertが無効になり、Release時に定義するとassertが有効になる。
 //#define SPEED_DEBUG
@@ -82,6 +86,10 @@ typedef unsigned __int64 uint64_t;
 #include <smmintrin.h>
 #elif defined (HAVE_SSE2)
 #include <emmintrin.h>
+#endif
+
+#if defined (__GNUC__)
+#include <mm_malloc.h> // for _mm_alloc()
 #endif
 
 #define FORCE_INLINE __forceinline
