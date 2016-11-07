@@ -42,9 +42,13 @@ inline int bsf64(const uint64_t mask)
 {
 	assert(mask != 0);
 #if defined USE_BSF
+#if defined(_MSC_VER)
 	unsigned long index;
 	_BitScanForward64(&index, mask);
 	return index;
+#else
+	return __builtin_ctzll(mask);
+#endif
 #else
 	static const int BitTable[64] =
 	{
@@ -63,9 +67,13 @@ inline int bsr64(const uint64_t mask)
 {
 	assert(mask != 0);
 #if defined USE_BSF
+#if defined(_MSC_VER)
 	unsigned long index;
 	_BitScanReverse64(&index, mask);
 	return index;
+#else
+	return 63 - __builtin_clzll(mask);
+#endif
 #else
 	for (int i = 63; 0 <= i; --i)
 	{
