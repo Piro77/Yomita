@@ -82,6 +82,7 @@ void OptionsMap::init()
 #endif
 }
 
+#if 0
 // どんなオプション項目があるのかを表示する演算子。
 std::ostream& operator << (std::ostream& os, const OptionsMap& om)
 {
@@ -98,6 +99,7 @@ std::ostream& operator << (std::ostream& os, const OptionsMap& om)
 	}
 	return os;
 }
+#endif
 
 // Optionクラスのコンストラクターと変換子。 
 Option::Option(Fn* f) : type_("button"), min_(0), max_(0), on_change_(f) {}

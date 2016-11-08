@@ -66,6 +66,23 @@ namespace USI
 	// usi文字列の指し手をMoveインスタンスに変換
 	Move toMove(const Board& b, std::string str);
 } // namespace USI
+//
+// どんなオプション項目があるのかを表示する演算子。
+std::ostream& operator << (std::ostream& os, const OptionsMap& om)
+{
+  for (auto it = om.begin(); it != om.end(); ++it)
+  {
+    const Option& o = it->second;
+    os << "\noption name " << it->first << " type " << o.type_;
+
+    if (o.type_ != "button")
+      os << " default " << o.default_value_;
+
+    if (o.type_ == "spin")
+      os << " min " << o.min_ << " max " << o.max_;
+  }
+  return os;
+}
 
 namespace Learn
 {
@@ -323,7 +340,7 @@ void USI::loop(int argc, char** argv)
 		{
 			SYNC_COUT << "id name " << engine_name << EVAL_TYPE << version
 				<< "\nid author Ryuzo Tukamoto"
-//XXX invalid operands to binary expression??				<< "\n" << Options
+				<< "\n" << Options
 				<< "\nusiok" << SYNC_ENDL;
 		}
 
