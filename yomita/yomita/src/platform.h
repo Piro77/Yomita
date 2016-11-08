@@ -67,11 +67,25 @@ typedef unsigned __int64 uint64_t;
 #endif
 #if defined(__GNUC__) && defined(__x86_64__)
 #define IS_64BIT
+#if defined(USE_AVX2)
 #define USE_BSF
 #define USE_POPCNT
+#endif
+#endif
+#if !defined(_MSC_VER)
+//makeのオプション USE_AVX2,USE_SSE42,USE_SSE2,
+#if defined(USE_AVX2)
 #define HAVE_SSE42
 #define HAVE_SSE4
 #define HAVE_BMI2
+#endif
+#if defined(USE_SSE42)
+#define HAVE_SSE42
+#define HAVE_SSE4
+#endif
+#if defined(USE_SSE2)
+#define HAVE_SSE2
+#endif
 #endif
 
 // uint64_tに対するpopcnt命令を使うか

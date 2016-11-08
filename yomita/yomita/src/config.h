@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 // 棋譜からの学習時に定義。
-#define LEARN
+//#define LEARN
 
 // 教師棋譜の生成時に定義。LEARNと同時に定義してもよい。
 //#define GENSFEN
@@ -59,7 +59,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define GENERATED_SFEN_BY_FILESQ
 
 // 進行度を使うときに定義する。
-#define USE_PROGRESS
+//#define USE_PROGRESS
 
 // 評価関数バイナリが入っているディレクトリと、学習時に生成したバイナリを保存するディレクトリ
 #ifdef EVAL_KPP
