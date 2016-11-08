@@ -72,6 +72,8 @@ const uint64_t EXCEPT_MASK[2] = { 0x3ffffULL, 0x7fffe00000000000ULL };
 #define UNREACHABLE assert(false);
 #elif defined SPEED_DEBUG
 #define UNREACHABLE __assume(0);
+#elif defined(__GNUC__)
+#define UNREACHABLE assert(false); __builtin_unreachable();
 #else
 #define UNREACHABLE assert(false); __assume(0);
 #endif
