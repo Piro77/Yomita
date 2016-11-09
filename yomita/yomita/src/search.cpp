@@ -338,8 +338,8 @@ void MainThread::search()
 
 		SYNC_COUT << "bestmove " << toUSI(best_move);
 
-		if (Options["Ponder"]
-			&& best_thread->root_moves[0].pv.size() > 1
+		if ((Options["Ponder"]
+			&& (best_thread->root_moves[0].pv.size() > 1))
 			|| (!isNone(best_thread->root_moves[0].pv[0]) && best_thread->root_moves[0].extractPonderFromTT(root_board, ponder_candidate)))
 			std::cout << " ponder " << toUSI(best_thread->root_moves[0].pv[1]);
 
@@ -403,7 +403,7 @@ void Thread::search()
 			std::stable_sort(root_moves.begin(), root_moves.end());
 
 			// 勝ちを見つけたら速攻指す
-			if (best_score >= SCORE_MATE_IN_MAX_PLY || best_score >= SCORE_KNOWN_WIN && root_moves.size() == 1)
+			if (((best_score >= SCORE_MATE_IN_MAX_PLY) || (best_score >= SCORE_KNOWN_WIN)) && (root_moves.size() == 1))
 			{
 				root_moves[0].score = SCORE_INFINITE;
 				return;
