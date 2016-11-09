@@ -68,7 +68,6 @@ typedef unsigned __int64 uint64_t;
 #if defined(__GNUC__) && defined(__x86_64__)
 #define IS_64BIT
 #if defined(USE_AVX2)
-#define USE_BSF
 #define USE_POPCNT
 #endif
 #endif
