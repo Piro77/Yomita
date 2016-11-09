@@ -817,7 +817,7 @@ namespace
 			// 一手前に取られた駒より価値の高い駒を取る手を優先して生成する
 			MovePicker mp(b, tt_move, th);
 
-			while (move = mp.nextMove())
+			while ((move = mp.nextMove())!=MOVE_NONE)
 				if (b.legal<true>(move)) // 駒を取る手なので駒打ちではないはず
 				{
 					assert(!isDrop(move));
@@ -880,7 +880,7 @@ namespace
 										&& tt_depth >= depth - 3 * ONE_PLY;
 
 		// Step 11. Loop through moves
-		while (move = mp.nextMove())
+		while ((move = mp.nextMove())!=MOVE_NONE)
 		{
 			assert(isOK(move));
 
@@ -1326,7 +1326,7 @@ namespace
 		Move move;
 		StateInfo si;
 
-		while (move = mp.nextMove())
+		while ((move = mp.nextMove())!=MOVE_NONE)
 		{
 			const bool gives_check = b.givesCheck(move);
 
