@@ -328,7 +328,7 @@ void USI::loop(int argc, char** argv)
 
 		if (   token == "quit"
 			|| token == "stop"
-			|| token == "ponderhit" && Signals.stop_on_ponderhit
+			|| (token == "ponderhit" && Signals.stop_on_ponderhit)
 			|| token == "gameover")
 		{
 			Signals.stop = true;
