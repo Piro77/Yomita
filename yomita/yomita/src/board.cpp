@@ -55,7 +55,7 @@ namespace Zobrist
 				psq[sq][p] = rng.rand<Key>() & ~turn;
 
 		for (auto t : Turns)
-			for (Piece p = EMPTY; p < HAND_MAX; ++p)
+			for (PieceType p = NO_PIECE_TYPE; p < HAND_MAX; ++p)
 				hand[t][p] = rng.rand<Key>() & ~turn;
 	}
 }
