@@ -31,7 +31,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // 持ち駒打ちでAVX2命令を使うか
 #ifdef HAVE_BMI2
+#if !defined(__GNUC__)
 #define USE_YMM
+#endif
 #endif
 
 // TURNから見たHIGH盤面から敵陣を取り出すマスク
