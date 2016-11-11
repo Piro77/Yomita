@@ -40,10 +40,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define EVAL_KPPL
 
 // KPP + 手番型の評価関数
-//#define EVAL_KPPT
+#define EVAL_KPPT
 
 // PP + 手番型の評価関数
-#define EVAL_PPT
+//#define EVAL_PPT
 
 // KRB型
 //#define EVAL_KRB

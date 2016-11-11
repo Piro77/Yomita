@@ -62,6 +62,7 @@ namespace Eval
 		std::ifstream ifsKKP(path((std::string)USI::Options["EvalDir"], KKP_BIN), std::ios::binary);
 		std::ifstream ifsKPP(path((std::string)USI::Options["EvalDir"], KPP_BIN), std::ios::binary);
 
+    {
 		if (!ifsKK || !ifsKKP || !ifsKPP)
 			goto Error;
 
@@ -118,7 +119,7 @@ namespace Eval
 		evalLearnInit();
 #endif
 		return;
-
+  }
 	Error:;
 		std::cout << "\ninfo string open evaluation file failed.\n";
 	}
@@ -227,6 +228,7 @@ namespace Eval
 	{
 		auto st = b.state();
 		EvalSum sum;
+    {
 
 		if (!st->sum.isNotEvaluated())
 		{
@@ -484,7 +486,7 @@ namespace Eval
 		}
 
 		now->sum = sum;
-
+    }
 		// 差分計算終わり
 	CALC_DIFF_END:
 		sum.p[2][0] += b.state()->material * FV_SCALE;
