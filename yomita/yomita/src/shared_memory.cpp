@@ -40,53 +40,52 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // memory mapped fileに必要。
 namespace Eval
 {
-	extern void loadSub();
+    extern void loadSub();
 
-	void load()
-	{
-		if (!(bool)USI::Options["EvalShare"])
-		{
-			auto shared = new SharedEval();
-			et.set(shared);
-			loadSub();
-			SYNC_COUT << "info string use non-shared eval memory" << SYNC_ENDL;
-			return;
-		}
-#if defined(_MSC_VER)
-		std::string dir_name = USI::Options["EvalDir"];
-		replace(dir_name.begin(), dir_name.end(), '\\', '_');
-		replace(dir_name.begin(), dir_name.end(), '/', '_');
+    void load()
+    {
+        if (!(bool)USI::Options["EvalShare"])
+        {
+            auto shared = new SharedEval();
+            et.set(shared);
+            loadSub();
+            SYNC_COUT << "info string use non-shared eval memory" << SYNC_ENDL;
+            return;
+        }
 
-		std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> cv;
+        std::string dir_name = USI::Options["EvalDir"];
+        replace(dir_name.begin(), dir_name.end(), '\\', '_');
+        replace(dir_name.begin(), dir_name.end(), '/', '_');
 
-		auto mapped = TEXT("YOMITA_KPPT_MMF") + cv.from_bytes(dir_name);
-		auto mutex = TEXT("YOMITA_KPPT_MUTEX") + cv.from_bytes(dir_name);
-		auto h_mutex = CreateMutex(NULL, FALSE, mutex.c_str());
+        std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> cv;
 
-		WaitForSingleObject(h_mutex, INFINITE);
-		{
-			auto h_map = CreateFileMapping(INVALID_HANDLE_VALUE,
-				NULL,
-				PAGE_READWRITE,
-				0, sizeof(SharedEval),
-				mapped.c_str());
+        auto mapped = TEXT("YOMITA_KPPT_MMF") + cv.from_bytes(dir_name);
+        auto mutex = TEXT("YOMITA_KPPT_MUTEX") + cv.from_bytes(dir_name);
+        auto h_mutex = CreateMutex(NULL, FALSE, mutex.c_str());
 
-			bool exists = GetLastError() == ERROR_ALREADY_EXISTS;
-			auto shared = (SharedEval*)MapViewOfFile(h_map, FILE_MAP_ALL_ACCESS, 0, 0, sizeof(SharedEval));
-			et.set(shared);
+        WaitForSingleObject(h_mutex, INFINITE);
+        {
+            auto h_map = CreateFileMapping(INVALID_HANDLE_VALUE,
+                NULL,
+                PAGE_READWRITE,
+                0, sizeof(SharedEval),
+                mapped.c_str());
 
-			if (!exists)
-			{
-				loadSub();
-				SYNC_COUT << "info string created shared eval memory" << SYNC_ENDL;
-			}
-			else
-				SYNC_COUT << "info string use shared eval memory" << SYNC_ENDL;
+            bool exists = GetLastError() == ERROR_ALREADY_EXISTS;
+            auto shared = (SharedEval*)MapViewOfFile(h_map, FILE_MAP_ALL_ACCESS, 0, 0, sizeof(SharedEval));
+            et.set(shared);
 
-			ReleaseMutex(h_mutex);
-		}
-#endif
-	}
+            if (!exists)
+            {
+                loadSub();
+                SYNC_COUT << "info string created shared eval memory" << SYNC_ENDL;
+            }
+            else
+                SYNC_COUT << "info string use shared eval memory" << SYNC_ENDL;
+
+            ReleaseMutex(h_mutex);
+        }
+    }
 } // namespace Eval;
 
 #endif
