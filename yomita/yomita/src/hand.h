@@ -46,16 +46,16 @@ public:
     operator uint32_t() const { return hand_; }
 
     // 取った駒を持ち駒に加える,打った駒を持ち駒から減らす
-    void plus(const PieceType p) { assert(p > EMPTY && p < KING); hand_ += HAND_INCREMENT[p - 1]; }
-    void minus(const PieceType p) { assert(p > EMPTY && p < KING); hand_ -= HAND_INCREMENT[p - 1]; }
-    void set(const PieceType p, int num) { assert(p > EMPTY && p < KING); hand_ |= num << HAND_SHIFT[p - 1]; }
+    void plus(const PieceType p) { assert(p > NO_PIECE_TYPE && p < KING); hand_ += HAND_INCREMENT[p - 1]; }
+    void minus(const PieceType p) { assert(p > NO_PIECE_TYPE && p < KING); hand_ -= HAND_INCREMENT[p - 1]; }
+    void set(const PieceType p, int num) { assert(p > NO_PIECE_TYPE && p < KING); hand_ |= num << HAND_SHIFT[p - 1]; }
 
     // 指定された持ち駒を持っているかどうか。 先手後手の同じ駒同士の枚数を比較するときも使えるのでintで返す
-    uint32_t exists(const PieceType p) const { assert(p > EMPTY && p < KING);  return hand_ & HAND_MASK[p - 1]; }
+    uint32_t exists(const PieceType p) const { assert(p > NO_PIECE_TYPE && p < KING);  return hand_ & HAND_MASK[p - 1]; }
     uint32_t existsExceptPawn() const { return hand_ & EXCEPT_PAWN_MASK; }
 
     // 枚数を返す
-    int count(const PieceType p) const { assert(p > EMPTY && p < KING); return (hand_ & HAND_MASK[p - 1]) >> HAND_SHIFT[p - 1]; }
+    int count(const PieceType p) const { assert(p > NO_PIECE_TYPE && p < KING); return (hand_ & HAND_MASK[p - 1]) >> HAND_SHIFT[p - 1]; }
 
     // 引数のHandより優れていたらtrue
     // hのほうがどれかひとつでも多く持っていればBORROWのbitが立つ。

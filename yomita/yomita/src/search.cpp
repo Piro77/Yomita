@@ -336,8 +336,8 @@ void MainThread::search()
 
         SYNC_COUT << "bestmove " << toUSI(best_move);
 
-        if (Options["Ponder"]
-            && best_thread->root_moves[0].pv.size() > 1
+        if ((Options["Ponder"]
+            && best_thread->root_moves[0].pv.size() > 1)
             || (!isNone(best_thread->root_moves[0].pv[0]) && best_thread->root_moves[0].extractPonderFromTT(root_board, ponder_candidate)))
             std::cout << " ponder " << toUSI(best_thread->root_moves[0].pv[1]);
 
@@ -401,7 +401,7 @@ void Thread::search()
             std::stable_sort(root_moves.begin(), root_moves.end());
 
             // 勝ちを見つけたら速攻指す
-            if (best_score >= SCORE_MATE_IN_MAX_PLY || best_score >= SCORE_KNOWN_WIN && root_moves.size() == 1)
+            if (best_score >= SCORE_MATE_IN_MAX_PLY || (best_score >= SCORE_KNOWN_WIN && root_moves.size() == 1))
             {
                 root_moves[0].score = SCORE_INFINITE;
                 return;
@@ -818,7 +818,7 @@ namespace
             // 一手前に取られた駒より価値の高い駒を取る手を優先して生成する
             MovePicker mp(b, tt_move, th);
 
-            while (move = mp.nextMove())
+            while ((move = mp.nextMove())!=MOVE_NONE)
                 if (b.legal<true>(move)) // 駒を取る手なので駒打ちではないはず
                 {
                     assert(!isDrop(move));
@@ -881,7 +881,7 @@ namespace
                                         && tt_depth >= depth - 3 * ONE_PLY;
 
         // Step 11. Loop through moves
-        while (move = mp.nextMove())
+        while ((move = mp.nextMove())!=MOVE_NONE)
         {
             assert(isOK(move));
 
@@ -1330,7 +1330,7 @@ namespace
         Move move;
         StateInfo si;
 
-        while (move = mp.nextMove())
+        while ((move = mp.nextMove())!=MOVE_NONE)
         {
             const bool gives_check = b.givesCheck(move);
 
@@ -1600,7 +1600,7 @@ std::string USI::pv(const Board & b, Depth depth, Score alpha, Score beta)
         ss << "\n";
 
     ss << "info"
-        << " depth " << d / ONE_PLY
+        << " depth " << std::to_string(d / ONE_PLY)
         << " seldepth " << b.thisThread()->max_ply
         << " score " << USI::score(root_moves[0].score);
 

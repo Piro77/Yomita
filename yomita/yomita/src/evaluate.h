@@ -201,7 +201,7 @@ namespace Eval
         { 
             assert(isOK(bp));
             PieceNo ret = piece_no_list_[bp];
-            assert(ret != -1);
+            assert((int)ret != -1);
             return ret;
         }
 

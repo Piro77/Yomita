@@ -52,7 +52,7 @@ namespace Eval
             SYNC_COUT << "info string use non-shared eval memory" << SYNC_ENDL;
             return;
         }
-
+#if defined(_MSC_VER)
         std::string dir_name = USI::Options["EvalDir"];
         replace(dir_name.begin(), dir_name.end(), '\\', '_');
         replace(dir_name.begin(), dir_name.end(), '/', '_');
@@ -85,6 +85,7 @@ namespace Eval
 
             ReleaseMutex(h_mutex);
         }
+#endif
     }
 } // namespace Eval;
 
