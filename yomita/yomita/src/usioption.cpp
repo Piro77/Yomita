@@ -32,8 +32,9 @@ using std::string;
 namespace
 {
     void onThreads(const Option&) { Threads.readUsiOptions(); }
-    void onHashSize(const Option& opt) { TT.resize(opt);}
+    void onHashSize(const Option& opt) { TT.resize(opt); }
     void onWriteDebugLog(const Option& opt) { startLogger(opt); }
+
 } // namespace
 
  // init()は引数で渡されたUSI option設定をhard codeされたデフォルト値で初期化する
@@ -59,6 +60,7 @@ void OptionsMap::init()
     (*this)["byoyomi_margin"]        = Option(0, 0, 60000);
     (*this)["Write_Debug_Log"]       = Option(false, onWriteDebugLog);
     (*this)["Draw_Score"]            = Option(-50, -300, 300);
+    (*this)["MultiPV"]               = Option(1, 1, 500);
 #ifdef USE_PROGRESS
     (*this)["ProgressDir"]           = Option("progress");
 #endif
@@ -79,7 +81,9 @@ void OptionsMap::init()
     eval += "/6_205";
 #endif
     (*this)["EvalShare"]             = Option(false);
+#ifdef LEARN
     (*this)["EvalSaveDir"]           = Option(save.c_str());
+#endif
     (*this)["EvalDir"]               = Option(eval.c_str());
 #endif
 }
