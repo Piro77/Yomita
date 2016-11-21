@@ -1637,7 +1637,7 @@ std::string USI::pv(const Board & b, Depth depth, Score alpha, Score beta)
             ss << "\n";
 
         ss << "info"
-            << " depth " << std::string(d / ONE_PLY)
+            << " depth " << std::to_string(d / ONE_PLY)
             << " seldepth " << b.thisThread()->max_ply
             << " multipv " << i + 1
             << " score " << USI::score(s)
