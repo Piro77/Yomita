@@ -245,7 +245,10 @@ void MainThread::search()
     {
         auto it = book.find(root_board.sfen());
 
-        if (!Limits.infinite && it != book.end() && it->second.best_move != MOVE_NONE)
+        if (Options["UseBook"]
+            && !Limits.infinite 
+            && it != book.end() 
+            && it->second.best_move != MOVE_NONE)
         {
             // 定跡にヒット
             Move m = it->second.best_move;
@@ -285,7 +288,8 @@ void MainThread::search()
                 }
             }
 
-            if (root_moves.size() == 1 && !Limits.move_time) // 一手しかないのですぐ指す
+            // 検討モード時や秒読み時は合法手が1手しかなくても思考する
+            if (!Limits.infinite && root_moves.size() == 1 && !Limits.move_time) // 一手しかないのですぐ指す
             {
                 root_depth = DEPTH_MAX;
                 root_moves[0].score = SCORE_INFINITE; // 絶対この手が選ばれるように
@@ -415,8 +419,8 @@ void Thread::search()
                 // 勝ちを見つけたら速攻指す
                 if (best_score >= SCORE_MATE_IN_MAX_PLY || (best_score >= SCORE_KNOWN_WIN && root_moves.size() == 1))
                 {
-                    root_moves[0].score = SCORE_INFINITE;
-                    return;
+                    SYNC_COUT << USI::pv(root_board, root_depth, alpha, beta) << SYNC_ENDL;
+                    Signals.stop = true;
                 }
 
                 if (Signals.stop)
