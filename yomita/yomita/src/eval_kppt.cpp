@@ -58,7 +58,6 @@ namespace Eval
     // 評価関数ファイルを読み込む
     void loadSub()
     {
-      {
         std::ifstream ifsKK(path((std::string)USI::Options["EvalDir"], KK_BIN), std::ios::binary);
         std::ifstream ifsKKP(path((std::string)USI::Options["EvalDir"], KKP_BIN), std::ios::binary);
         std::ifstream ifsKPP(path((std::string)USI::Options["EvalDir"], KPP_BIN), std::ios::binary);
