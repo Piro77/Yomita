@@ -96,7 +96,7 @@ typedef unsigned __int64 uint64_t;
 #endif
 
 #if !defined(IS_64BIT)
-#define HAVE_SSE2
+//#define HAVE_SSE2
 #endif
 
 #if defined (HAVE_BMI2)
